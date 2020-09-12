@@ -1111,7 +1111,7 @@ class AstArcAnalyzer(object):
     def _handle__While(self, node):
         constant_test = self.is_constant_expr(node.test)
         start = to_top = self.line_for_node(node.test)
-        if constant_test and (env.PY3 or constant_test == "Num"):
+        if not env.NOOPT and constant_test and (env.PY3 or constant_test == "Num"):
             to_top = self.line_for_node(node.body[0])
         self.block_stack.append(LoopBlock(start=to_top))
         from_start = ArcStart(start, cause="the condition on line {lineno} was never true")
@@ -1126,7 +1126,7 @@ class AstArcAnalyzer(object):
             else_exits = self.add_body_arcs(node.orelse, from_start=from_start)
             exits |= else_exits
         else:
-            # No `else` clause: you can exit from the start.
+            # No `else` clause: you can exit from the start if the condition isn't constant.
             if not constant_test:
                 exits.add(from_start)
         return exits

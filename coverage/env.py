@@ -17,6 +17,8 @@ PYVERSION = sys.version_info + (int(platform.python_version()[-1] == "+"),)
 PY2 = PYVERSION < (3, 0)
 PY3 = PYVERSION >= (3, 0)
 
+NOOPT = getattr(sys.flags, "noopt", False)
+
 # Python implementations.
 PYPY = (platform.python_implementation() == 'PyPy')
 if PYPY:
@@ -80,7 +82,7 @@ class PYBEHAVIOR(object):
     trace_decorated_def = (PYVERSION >= (3, 8))
 
     # Are while-true loops optimized into absolute jumps with no loop setup?
-    nix_while_true = (PYVERSION >= (3, 8))
+    nix_while_true = (PYVERSION >= (3, 8)) and not NOOPT
 
     # Python 3.9a1 made sys.argv[0] and other reported files absolute paths.
     report_absolute_files = (PYVERSION >= (3, 9))

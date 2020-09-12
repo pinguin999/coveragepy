@@ -248,7 +248,9 @@ class LoopArcTest(CoverageTest):
 
     def test_while_true(self):
         # With "while 1", the loop knows it's constant.
-        if env.PYBEHAVIOR.nix_while_true:
+        if env.NOOPT:
+            arcz = ".1 12 23 34 45 36 62 57 7."
+        elif env.PYBEHAVIOR.nix_while_true:
             arcz = ".1 13 34 45 36 63 57 7."
         else:
             arcz = ".1 12 23 34 45 36 63 57 7."
@@ -265,7 +267,9 @@ class LoopArcTest(CoverageTest):
             )
         # With "while True", 2.x thinks it's computation,
         # 3.x thinks it's constant.
-        if env.PYBEHAVIOR.nix_while_true:
+        if env.NOOPT:
+            arcz = ".1 12 23 34 45 36 62 57 7."
+        elif env.PYBEHAVIOR.nix_while_true:
             arcz = ".1 13 34 45 36 63 57 7."
         elif env.PY3:
             arcz = ".1 12 23 34 45 36 63 57 7."
@@ -305,7 +309,9 @@ class LoopArcTest(CoverageTest):
     def test_bug_496_continue_in_constant_while(self):
         # https://github.com/nedbat/coveragepy/issues/496
         # A continue in a while-true needs to jump to the right place.
-        if env.PYBEHAVIOR.nix_while_true:
+        if env.NOOPT:
+            arcz = ".1 12 23 34 45 52 46 67 7."
+        elif env.PYBEHAVIOR.nix_while_true:
             arcz = ".1 13 34 45 53 46 67 7."
         elif env.PY3:
             arcz = ".1 12 23 34 45 53 46 67 7."
@@ -1086,6 +1092,10 @@ class OptimizedIfTest(CoverageTest):
     """Tests of if statements being optimized away."""
 
     def test_optimized_away_if_0(self):
+        if env.NOOPT:
+            lines = [1, 2, 3, 4, 5, 6, 8, 9]
+        else:
+            lines = [1, 2, 3, 8, 9]
         self.check_coverage("""\
             a = 1
             if len([2]):
@@ -1097,7 +1107,7 @@ class OptimizedIfTest(CoverageTest):
                 e = 8
             f = 9
             """,
-            lines=[1, 2, 3, 8, 9],
+            lines=lines,
             arcz=".1 12 23 28 38 89 9.",
             arcz_missing="28",
         )
