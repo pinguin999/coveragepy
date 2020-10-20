@@ -425,6 +425,7 @@ class CoverageTest(
             command_words = [command_name]
 
         cmd = " ".join([shlex_quote(w) for w in command_words] + command_args)
+        cmd = " ".join(command_words + command_args)
         print("cmd: {!r}".format(cmd))
 
         # Add our test modules directory to PYTHONPATH.  I'm sure there's too
