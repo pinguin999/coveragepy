@@ -418,7 +418,7 @@ class CoverageTest(
                 # The invocation requests the coverage.py program.  Substitute the
                 # actual coverage.py main command name.
                 command_words = [self.coverage_command]
-                command_words = [os.path.basename(sys.executable), "-m", "coverage"]
+                command_words = [sys.executable, "-m", "coverage"]
 
         else:
             command_words = [command_name]
