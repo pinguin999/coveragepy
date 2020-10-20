@@ -419,11 +419,13 @@ class CoverageTest(
                 # actual coverage.py main command name.
                 command_words = [self.coverage_command]
                 command_words = [sys.executable, "-m", "coverage"]
+                print("command_words: {!r}".format(command_words))
 
         else:
             command_words = [command_name]
 
         cmd = " ".join([shlex_quote(w) for w in command_words] + command_args)
+        print("cmd: {!r}".format(cmd))
 
         # Add our test modules directory to PYTHONPATH.  I'm sure there's too
         # much path munging here, but...
