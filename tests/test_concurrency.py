@@ -396,7 +396,7 @@ class MultiprocessingTest(CoverageTest):
             cmd = "coverage run {args} multi.py {start_method}".format(
                 args=args, start_method=start_method,
             )
-            print(f"@ self.run_command({cmd=})")
+            raise Exception(f"@ self.run_command({cmd=})")
             out = self.run_command(cmd)
             print(f"@ self.run_command(); {out=}")
             expected_cant_trace = cant_trace_msg(concurrency, the_module)
