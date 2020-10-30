@@ -396,7 +396,6 @@ class MultiprocessingTest(CoverageTest):
                 args=args, start_method=start_method,
             )
             out = self.run_command(cmd)
-            print(f"@ self.run_command(); {out=}")
             expected_cant_trace = cant_trace_msg(concurrency, the_module)
 
             if expected_cant_trace is not None:
