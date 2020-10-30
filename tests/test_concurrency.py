@@ -391,12 +391,10 @@ class MultiprocessingTest(CoverageTest):
             if start_method and start_method not in multiprocessing.get_all_start_methods():
                 continue
 
-            print(f"@ try_multiprocessing_code, {start_method=}")
             remove_files(".coverage", ".coverage.*")
             cmd = "coverage run {args} multi.py {start_method}".format(
                 args=args, start_method=start_method,
             )
-            raise Exception(f"@ self.run_command({cmd=})")
             out = self.run_command(cmd)
             print(f"@ self.run_command(); {out=}")
             expected_cant_trace = cant_trace_msg(concurrency, the_module)
