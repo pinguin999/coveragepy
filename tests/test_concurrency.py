@@ -494,7 +494,7 @@ class MultiprocessingTest(CoverageTest):
         self.assertIn("Exception during multiprocessing bootstrap init", out)
         self.assertIn("Exception: Crashing because called by _bootstrap", out)
 
-    def xxxx_bug890(self):
+    def test_bug890(self):
         # chdir in multiprocessing shouldn't keep us from finding the
         # .coveragerc file.
         self.make_file("multi.py", """\
