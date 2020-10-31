@@ -3,6 +3,10 @@
 
 version: '{branch}-{build}'
 
+# Build worker image (VM template)
+# https://www.appveyor.com/docs/windows-images-software/#python
+image: Visual Studio 2019
+
 shallow_clone: true
 
 cache:
